@@ -11,28 +11,22 @@ $validateemail="";
 $validatecpassword="";
 if($_SERVER["REQUEST_METHOD"]=="POST")
 {
-    $name=$_REQUEST["name"];
+    $username=$_REQUEST["username"];
     $email=$_REQUEST["email"];
     $password=$_REQUEST["password"];
     $cpassword=$_REQUEST["cpassword"];
 
-    $name = $_POST ["name"];
-    $length = strlen ($name);  
-if (!preg_match ("/^[a-zA-z,_,-]*$/", $name) ) {  
+    $username = $_POST ["username"];
+    $length = strlen ($username);  
+if (!preg_match ("/^[a-zA-z,_,-]*$/", $username) ) {  
     $ErrMsg = "alpha numeric characters,period,dash or uderscore only";  
              echo $ErrMsg;  
 } else if ( $length < 5) {  
-  $ErrMsg = "name must have 5 characters.";  
+  $ErrMsg = "username must have 5 characters.";  
           echo $ErrMsg;  
 } else {  
-  echo "Your  name is: " .$name;  
+  echo "Your  username is: " .$username;
 }
-  
-
-  
-
-
- 
 $email = $_POST ["email"];  
 $pattern = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^";  
 if (!preg_match ($pattern, $email) ){  
@@ -41,8 +35,22 @@ if (!preg_match ($pattern, $email) ){
 } else {  
     echo "Your valid email address is: " .$email;  
 }  
-
+$password = $_POST ["password"];
+$cpassword = $_POST["cpassword"];
+if (!preg_match  ( "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$^", $password))
+{
+    $ErrMsg = "password is not valid.";
+    echo $ErrMsg;
 }
+elseif (strcmp($password, $cpassword) !== 0) {
+    $ErrMsg = "Passwords must match!";
+    echo $ErrMsg;
+}
+else {
+        echo $password;
+    }
+}
+
 ?>
 
 <form action="<?php  echo $_SERVER["PHP_SELF"];?>" method="post">
